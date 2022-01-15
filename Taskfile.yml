@@ -1,0 +1,28 @@
+version: '3'
+
+tasks:
+  default:
+    silent: true
+    cmds:
+      - task: help
+
+  help:
+    desc: Display the list of available tasks
+    silent: true
+    cmds:
+      - task --list
+
+  build:
+    desc: "Install and build the whole project image: Nuxt v2, then Nuxt Bridge"
+    cmds:
+      - docker build -t nuxt-2-to-nuxt-bridge  .
+
+  run:
+    desc: "Run the built image (e.g.: following `task build`)"
+    cmds:
+        - docker run --rm -it -p 3000:3000 nuxt-2-to-nuxt-bridge
+
+  shell:
+    desc: "Create a container from the built image and attach an interactive shell to it"
+    cmds:
+      - docker run --rm -it nuxt-2-to-nuxt-bridge ash
